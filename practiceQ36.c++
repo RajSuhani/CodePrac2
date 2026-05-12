@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int minimumEffort(vector<vector<int>>& tasks) {
+
+        sort(tasks.begin(), tasks.end(),
+            [](vector<int>& a, vector<int>& b) {
+                return (a[1] - a[0]) > (b[1] - b[0]);
+            });
+
+        int energy = 0;
+        int current = 0;
+
+        for (auto &task : tasks) {
+
+            int actual = task[0];
+            int minimum = task[1];
+
+            if (current < minimum) {
+                energy += (minimum - current);
+                current = minimum;
+            }
+
+            current -= actual;
+        }
+
+        return energy;
+    }
+};
+
+int main() {
+
+    int n;
+    cin >> n;
+
+    vector<vector<int>> tasks(n, vector<int>(2));
+
+    for (int i = 0; i < n; i++) {
+        cin >> tasks[i][0] >> tasks[i][1];
+    }
+
+    Solution obj;
+
+    cout << obj.minimumEffort(tasks);
+
+    return 0;
+}
