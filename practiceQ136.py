@@ -1,0 +1,12 @@
+class Solution:
+    def minOperations(self, s: str) -> int:
+        if all(map(le, s, s[1:])):  
+            return 0
+        if len(s) == 2:  
+            return -1
+
+        mid = lambda: islice(s, 1, len(s) - 1) 
+        lo, hi = min(mid()), max(mid())
+        if s[0] <= min(lo, s[-1]) or max(s[0], hi) <= s[-1]:  
+            return 1
+        return 3 if s[-1] < lo <= hi < s[0] else 2 
